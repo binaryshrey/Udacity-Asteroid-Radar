@@ -11,11 +11,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_16"
         android:layout_marginTop="@dimen/dimen_16"
-        tools:text="Name"
+        android:textColor="@color/white"
         android:textSize="@dimen/text_24"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Name" />
 
     <TextView
         android:id="@+id/date_textView"
@@ -23,12 +24,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_16"
         android:layout_marginTop="@dimen/dimen_8"
-        tools:text="2020-02-20"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/name_textView"
+        tools:text="2020-02-20" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/status_imageView"
         android:layout_width="@dimen/dimen_60"
         android:layout_height="@dimen/dimen_60"
         android:layout_marginEnd="@dimen/dimen_16"
