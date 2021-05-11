@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.Constants
+import com.udacity.asteroidradar.PictureOfDay
 import com.udacity.asteroidradar.api.APIService
 import com.udacity.asteroidradar.api.getSeventhDay
 import com.udacity.asteroidradar.api.getToday
@@ -26,6 +27,11 @@ class MainViewModel : ViewModel() {
     val property : LiveData<ArrayList<Asteroid>>
         get() = _property
 
+    private val _picOfTheDay = MutableLiveData<PictureOfDay>()
+    val picOfTheDay : LiveData<PictureOfDay>
+        get() = _picOfTheDay
+
+
     init {
         getAsteroidDataFromService()
     }
@@ -34,7 +40,10 @@ class MainViewModel : ViewModel() {
         viewModelScope.launch {
             try{
                 _property.value = parseAsteroidsJsonResult(JSONObject(APIService.retrofitService.getAsteroidData(getToday(), getSeventhDay(),Constants.API_KEY)))
+                _picOfTheDay.value = APIService.retrofitService.getPictureOfTheDay()
                 Log.i("MainViewModel","data : ${_property.value}")
+                Log.i("MainViewModel","data : ${_picOfTheDay.value}")
+
             }
             catch (e : Exception){
                 Log.i("MainViewModel","Error : ${e.message}")
