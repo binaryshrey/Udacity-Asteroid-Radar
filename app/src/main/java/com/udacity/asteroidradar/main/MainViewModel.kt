@@ -31,6 +31,9 @@ class MainViewModel : ViewModel() {
     val picOfTheDay : LiveData<PictureOfDay>
         get() = _picOfTheDay
 
+    private val _navigate = MutableLiveData<Asteroid>()
+    val navigate : LiveData<Asteroid>
+        get() = _navigate
 
     init {
         getAsteroidDataFromService()
@@ -49,6 +52,13 @@ class MainViewModel : ViewModel() {
                 Log.i("MainViewModel","Error : ${e.message}")
             }
         }
+    }
+
+    fun onNavigate(asteroid: Asteroid){
+        _navigate.value = asteroid
+    }
+    fun onNavigateComplete(){
+        _navigate.value = null
     }
 
 }
