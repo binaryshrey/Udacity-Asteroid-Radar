@@ -39,3 +39,14 @@ fun bindTextViewToDisplayVelocity(textView: TextView, number: Double) {
     val context = textView.context
     textView.text = String.format(context.getString(R.string.km_s_unit_format), number)
 }
+
+@BindingAdapter("name")
+fun bindTextViewToName(textView: TextView, codename: String) {
+    textView.text = codename
+}
+@BindingAdapter("closeApproachDate")
+fun bindTextViewToCloseApproachDate(textView: TextView, closeApproachDate: String) {
+    textView.text = closeApproachDate
+}
+
+
