@@ -15,18 +15,26 @@ import org.json.JSONObject
 class Repository(val databaseAsteroid: DatabaseAsteroid) {
 
     val asteroids: LiveData<List<Asteroid>> = Transformations.map(
-        databaseAsteroid.dataBaseDao.getAsteroids()){
+        databaseAsteroid.dataBaseDao.getAsteroids()
+    ) {
         it.asDomainModel()
     }
 
-    suspend fun refreshAsteroids(){
-        withContext(Dispatchers.IO){
+    suspend fun refreshAsteroids() {
+        withContext(Dispatchers.IO) {
             try {
-                val asteroidDataString = APIService.retrofitService.getAsteroidData(getToday(),
-                    getSeventhDay(),Constants.API_KEY)
-                val asteroids = AsteroidContainer(parseAsteroidsJsonResult(JSONObject(asteroidDataString))).asDatabaseModel()
+                val asteroidDataString = APIService.retrofitService.getAsteroidData(
+                    getToday(),
+                    getSeventhDay(), Constants.API_KEY
+                )
+                Log.i("Repository", "asteroidDataString : ${asteroidDataString}")
+
+                val asteroids =
+                    AsteroidContainer(parseAsteroidsJsonResult(JSONObject(asteroidDataString))).asDatabaseModel()
+                Log.i("Repository", "asteroids : ${asteroids}")
+
                 databaseAsteroid.dataBaseDao.insertAll(*asteroids)
-            } catch (e : Exception){
+            } catch (e: Exception) {
                 Log.i("Repository", "error : ${e.message}")
             }
         }

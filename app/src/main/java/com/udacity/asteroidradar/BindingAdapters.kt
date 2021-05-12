@@ -45,13 +45,14 @@ fun bindTextViewToDisplayVelocity(textView: TextView, number: Double) {
 fun bindTextViewToName(textView: TextView, codename: String) {
     textView.text = codename
 }
+
 @BindingAdapter("closeApproachDate")
 fun bindTextViewToCloseApproachDate(textView: TextView, closeApproachDate: String) {
     textView.text = closeApproachDate
 }
 
 @BindingAdapter("picOfTheDay")
-fun bindImageViewToPicOfTheDay(img : ImageView, pictureOfDay: PictureOfDay?){
+fun bindImageViewToPicOfTheDay(img: ImageView, pictureOfDay: PictureOfDay?) {
     if (pictureOfDay != null && pictureOfDay.url.isNotBlank()) {
         Picasso.with(img.context)
             .load(pictureOfDay.url)

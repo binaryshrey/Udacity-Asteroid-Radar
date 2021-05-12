@@ -12,31 +12,35 @@ import com.udacity.asteroidradar.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
 
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
-    }
+    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModelFactory: MainViewModelFactory
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val binding = FragmentMainBinding.inflate(inflater)
-        binding.lifecycleOwner = this
 
+        binding.lifecycleOwner = this
+        val application = requireNotNull(this.activity).application
+        viewModelFactory = MainViewModelFactory(application)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
         binding.viewModel = viewModel
 
         val adapter = MainAdapter(ClickListener { asteroid ->
-            Toast.makeText(context,"${asteroid.id}",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "${asteroid.id}", Toast.LENGTH_SHORT).show()
             viewModel.onNavigate(asteroid)
         })
         binding.asteroidRecycler.adapter = adapter
 
-        viewModel.property.observe(viewLifecycleOwner, Observer {
+        viewModel.asteroids.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it.toMutableList())
             }
         })
 
         viewModel.navigate.observe(viewLifecycleOwner, Observer {
-            if(it != null){
+            if (it != null) {
                 this.findNavController().navigate(MainFragmentDirections.actionShowDetail(it))
                 viewModel.onNavigateComplete()
             }
@@ -46,7 +50,6 @@ class MainFragment : Fragment() {
 
         return binding.root
     }
-
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-interface DataBaseDao{
+interface DataBaseDao {
 
     @Query("SELECT * FROM asteroids_table WHERE closeApproachDate >= DATE() ORDER BY closeApproachDate ASC")
     fun getAsteroids(): LiveData<List<DataBaseEntity>>
