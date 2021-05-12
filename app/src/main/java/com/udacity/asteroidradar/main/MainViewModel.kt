@@ -15,16 +15,14 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(app: Application) : AndroidViewModel(app) {
 
+    enum class STATUS { LOADING, DONE, ERROR }
+
     private val database = getDatabase(app)
     private val repository = Repository(database)
 
-    private val _status = MutableLiveData<String>()
-    val status: LiveData<String>
+    private val _status = MutableLiveData<STATUS>()
+    val status: LiveData<STATUS>
         get() = _status
-
-    private val _property = MutableLiveData<List<Asteroid>>()
-    val property: LiveData<List<Asteroid>>
-        get() = _property
 
     private val _picOfTheDay = MutableLiveData<PictureOfDay>()
     val picOfTheDay: LiveData<PictureOfDay>
@@ -35,9 +33,16 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         get() = _navigate
 
     init {
-        viewModelScope.launch {
-            repository.refreshAsteroids()
-            getPictureOfTheDay()
+        _status.postValue(STATUS.LOADING)
+        try{
+            viewModelScope.launch {
+                repository.refreshAsteroids()
+                getPictureOfTheDay()
+                _status.postValue(STATUS.DONE)
+            }
+        } catch (e : Exception){
+            Log.i("Repository", "${e.message}")
+            _status.postValue(STATUS.ERROR)
         }
     }
 

@@ -1,9 +1,13 @@
 package com.udacity.asteroidradar
 
+import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import com.udacity.asteroidradar.main.MainViewModel
 
 @BindingAdapter("statusIcon")
 fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
@@ -67,3 +71,31 @@ fun bindImageViewToPicOfTheDay(img: ImageView, pictureOfDay: PictureOfDay?) {
     }
 }
 
+@BindingAdapter("progressStatus")
+fun status(progressBar: ProgressBar, status : MainViewModel.STATUS?){
+    when(status){
+        MainViewModel.STATUS.LOADING ->{
+            progressBar.visibility = View.VISIBLE
+        }
+        MainViewModel.STATUS.DONE -> {
+            progressBar.visibility = View.INVISIBLE
+        }
+        MainViewModel.STATUS.ERROR -> {
+            progressBar.visibility = View.INVISIBLE
+        }
+    }
+}
+@BindingAdapter("recyclerViewStatus")
+fun recyclerViewStatus(recyclerView: RecyclerView, status: MainViewModel.STATUS?) {
+    when (status) {
+        MainViewModel.STATUS.LOADING -> {
+            recyclerView.visibility = View.INVISIBLE
+        }
+        MainViewModel.STATUS.DONE -> {
+            recyclerView.visibility = View.VISIBLE
+        }
+        MainViewModel.STATUS.ERROR -> {
+            recyclerView.visibility = View.INVISIBLE
+        }
+    }
+}
