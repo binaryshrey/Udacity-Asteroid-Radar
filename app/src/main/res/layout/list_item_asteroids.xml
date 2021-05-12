@@ -24,7 +24,7 @@
             android:layout_marginStart="@dimen/dimen_16"
             android:layout_marginTop="@dimen/dimen_16"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="@dimen/text_20"
             android:textStyle="bold"
             app:name="@{asteroid.codename}"
             app:layout_constraintStart_toStartOf="parent"
