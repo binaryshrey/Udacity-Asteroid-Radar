@@ -27,6 +27,32 @@ fun bindDetailsStatusImage(imageView: ImageView, isHazardous: Boolean) {
     }
 }
 
+@BindingAdapter("asteroidStatusImageContentDescription")
+fun bindDetailsStatusImageContentDescription(imageView: ImageView, isHazardous: Boolean) {
+    if (isHazardous) {
+        imageView.contentDescription = "ImageView for Hazardous Asteroids"
+    } else {
+        imageView.contentDescription = "ImageView for Safe Asteroids"
+    }
+}
+
+@BindingAdapter("picOfTheDayImageContentDescription")
+fun picOfTheDayImageContentDescription(imageView: ImageView, pictureOfDay: PictureOfDay?) {
+    if(pictureOfDay != null){
+        imageView.contentDescription = "Picture of the day : ${pictureOfDay.title}"
+    }
+}
+
+
+@BindingAdapter("isPotentiallyHazardousContentDescription")
+fun isPotentiallyHazardousContentDescription(imageView: ImageView, isHazardous: Boolean) {
+    if (isHazardous) {
+        imageView.contentDescription = "ImageView for Hazardous Asteroid"
+    } else {
+        imageView.contentDescription = "ImageView for Safe Asteroid"
+    }
+}
+
 @BindingAdapter("astronomicalUnitText")
 fun bindTextViewToAstronomicalUnit(textView: TextView, number: Double) {
     val context = textView.context

@@ -8,6 +8,7 @@ import com.udacity.asteroidradar.PictureOfDay
 import com.udacity.asteroidradar.api.APIService
 import com.udacity.asteroidradar.api.getSeventhDay
 import com.udacity.asteroidradar.api.getToday
+import com.udacity.asteroidradar.api.getTomorrow
 import com.udacity.asteroidradar.database.asDomainModel
 import com.udacity.asteroidradar.database.getDatabase
 import com.udacity.asteroidradar.repository.Repository
@@ -70,7 +71,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     fun savedAsteroids(){
         viewModelScope.launch {
             asteroids = Transformations.map(
-                database.dataBaseDao.getAllAsteroids()) {
+                database.dataBaseDao.getNewAsteroids(getToday())) {
                 it.asDomainModel()
             }
         }
@@ -79,7 +80,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     fun WeeksAsteroids(){
         viewModelScope.launch {
             asteroids = Transformations.map(
-                database.dataBaseDao.getAsteroidsByCloseApproachDate(getToday(), getSeventhDay())) {
+                database.dataBaseDao.getAsteroidsByCloseApproachDate(getTomorrow(), getSeventhDay())) {
                 it.asDomainModel()
             }
         }

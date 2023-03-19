@@ -24,7 +24,7 @@ class Repository(val databaseAsteroid: DatabaseAsteroid) {
         withContext(Dispatchers.IO) {
             try {
                 val asteroidDataString = APIService.retrofitService.getAsteroidData(
-                    getToday(),
+                    getTomorrow(),
                     getSeventhDay(), Constants.API_KEY
                 )
                 Log.i("Repository", "asteroidDataString : ${asteroidDataString}")

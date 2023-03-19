@@ -68,6 +68,12 @@ fun getToday(): String {
     return formatDate(calendar.time)
 }
 
+fun getTomorrow(): String {
+    val calendar = Calendar.getInstance()
+    calendar.add(Calendar.DAY_OF_YEAR, 1)
+    return formatDate(calendar.time)
+}
+
 fun getSeventhDay(): String {
     val calendar = Calendar.getInstance()
     calendar.add(Calendar.DAY_OF_YEAR, 7)

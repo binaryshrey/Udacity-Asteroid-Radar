@@ -44,6 +44,7 @@
             tools:text="2020-02-20" />
 
         <ImageView
+            tools:ignore="ContentDescription"
             android:id="@+id/status_imageView"
             android:layout_width="@dimen/dimen_60"
             android:layout_height="@dimen/dimen_60"
@@ -51,7 +52,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:statusIcon="@{asteroid.isPotentiallyHazardous}"
             app:layout_constraintTop_toTopOf="@+id/name_textView"
-            android:contentDescription="@string/isdangerous" />
+            app:isPotentiallyHazardousContentDescription="@{asteroid.isPotentiallyHazardous}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

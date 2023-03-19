@@ -15,6 +15,9 @@ interface DataBaseDao {
     @Query("SELECT * FROM asteroids_table ORDER BY closeApproachDate ASC")
     fun getAllAsteroids(): LiveData<List<DataBaseEntity>>
 
+    @Query("SELECT * FROM asteroids_table WHERE closeApproachDate >= :startDate ORDER BY closeApproachDate ASC")
+    fun getNewAsteroids(startDate: String): LiveData<List<DataBaseEntity>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg asteroids: DataBaseEntity)
 
