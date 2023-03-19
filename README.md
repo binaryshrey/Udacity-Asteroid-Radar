@@ -1,1 +1,1 @@
-# Asteroid-Radar
+# Udacity Asteroid Radar
